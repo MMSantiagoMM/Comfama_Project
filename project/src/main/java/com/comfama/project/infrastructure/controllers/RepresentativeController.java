@@ -36,6 +36,13 @@ public class RepresentativeController implements IMethodsController<Representati
         return new ResponseEntity<>(service.saveRepresentative(dto),HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Representative> update(@PathVariable Integer id, RepresentativeDTO dto){
+        return service.updateRepresentative(id,dto)
+                .map(proposer -> new ResponseEntity<>(proposer,HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 
     @Override
     @DeleteMapping("/{id}")

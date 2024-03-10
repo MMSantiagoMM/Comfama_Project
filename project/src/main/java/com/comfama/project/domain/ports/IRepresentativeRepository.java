@@ -11,6 +11,8 @@ public interface IRepresentativeRepository {
     Iterable<Representative> getAllRepresentatives();
     Optional<Representative> getRepresentative(Integer id);
     Representative saveRepresentative(Representative representative);
+
+    Optional<Representative> updateRepresentative(Integer id, Representative representative);
     Boolean deleteRepresentative(Integer id);
 
 }

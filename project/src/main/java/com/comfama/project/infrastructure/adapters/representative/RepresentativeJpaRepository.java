@@ -4,6 +4,7 @@ package com.comfama.project.infrastructure.adapters.representative;
 import com.comfama.project.domain.models.Representative;
 import com.comfama.project.domain.ports.IRepresentativeRepository;
 import com.comfama.project.infrastructure.entities.RepresentativeEntity;
+import com.comfama.project.infrastructure.exceptions.ProposerNotFoundException;
 import com.comfama.project.infrastructure.exceptions.RepresentativeNotFoundException;
 import com.comfama.project.infrastructure.mappers.RepresentativeMapper;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,20 @@ public class RepresentativeJpaRepository implements IRepresentativeRepository {
         repository.save(mapper.toEntity(representative));
         return representative;
 
+    }
+
+    @Override
+    public Optional <Representative> updateRepresentative(Integer id, Representative newRepresentative) {
+        return Optional.ofNullable(repository.findById(id)
+                .map(representative -> {
+                    representative.setName(newRepresentative.getName());
+                    representative.setLastName(newRepresentative.getLastName());
+                    representative.setEmail(newRepresentative.getEmail());
+                    representative.setCelPhone(newRepresentative.getCelPhone());
+                    representative.setTelephone(newRepresentative.getTelephone());
+                    representative.setTypeDocument(newRepresentative.getTypeDocument());
+                    return mapper.toRepresentative(repository.save(representative));
+                }).orElseThrow(()-> new RepresentativeNotFoundException(id)));
     }
 
     @Override
