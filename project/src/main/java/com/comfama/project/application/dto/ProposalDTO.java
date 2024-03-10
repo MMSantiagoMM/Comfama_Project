@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 public class ProposalDTO {
 
-    private Long id;
 
     private String name;
 
@@ -26,10 +25,9 @@ public class ProposalDTO {
     public ProposalDTO() {
     }
 
-    public ProposalDTO(Long id, String name, String descriptionActivities, String descriptionProposal,
+    public ProposalDTO(String name, String descriptionActivities, String descriptionProposal,
                        String focusedPeople, LocalDate beginningDate, Double totalMoney,
                        Long idProposer) {
-        this.id = id;
         this.name = name;
         this.descriptionActivities = descriptionActivities;
         this.descriptionProposal = descriptionProposal;
@@ -37,14 +35,6 @@ public class ProposalDTO {
         this.beginningDate = beginningDate;
         this.totalMoney = totalMoney;
         this.idProposer = idProposer;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

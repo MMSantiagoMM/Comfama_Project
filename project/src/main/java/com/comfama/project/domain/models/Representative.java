@@ -2,6 +2,7 @@ package com.comfama.project.domain.models;
 
 public class Representative {
 
+    private Integer id;
 
     private String name;
 
@@ -18,14 +19,23 @@ public class Representative {
     public Representative() {
     }
 
-    public Representative(String name, String lastName, String typeDocument, String telephone,
+    public Representative(Integer id, String name, String lastName, String typeDocument, String telephone,
                           String celPhone, String email) {
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.typeDocument = typeDocument;
         this.telephone = telephone;
         this.celPhone = celPhone;
         this.email = email;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -11,7 +11,7 @@ public class RepresentativeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_representative")
     private Integer id;
 
     @Column(name = "name")
@@ -36,14 +36,23 @@ public class RepresentativeEntity {
     public RepresentativeEntity() {
     }
 
-    public RepresentativeEntity(String name, String lastName, String typeDocument,
+    public RepresentativeEntity(Integer id, String name, String lastName, String typeDocument,
                                 String telephone, String celPhone, String email) {
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.typeDocument = typeDocument;
         this.telephone = telephone;
         this.celPhone = celPhone;
         this.email = email;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

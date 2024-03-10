@@ -11,7 +11,7 @@ public interface IReceivedProposalRepository {
 
     Optional<ReceivedProposal> getReceivedProposal(Long id);
 
-    ReceivedProposal createReceivedProposal(Long id);
+    ReceivedProposal createReceivedProposal(ReceivedProposal receivedProposal);
 
     Boolean deleteReceivedProposal(Long id);
 }

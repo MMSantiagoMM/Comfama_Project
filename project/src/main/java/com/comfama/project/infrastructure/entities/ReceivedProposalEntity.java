@@ -1,8 +1,5 @@
 package com.comfama.project.infrastructure.entities;
 
-
-import com.comfama.project.domain.models.Proposal;
-import com.comfama.project.domain.models.Representative;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -13,15 +10,15 @@ public class ReceivedProposalEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "proposal_id")
-    private Proposal proposal;
+    private ProposalEntity proposal;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "representative_id")
-    private Representative representative;
+    private RepresentativeEntity representative;
 
     @Column(name = "presentation_proposal_date")
     private LocalDate presentationProposalDate;
@@ -35,9 +32,9 @@ public class ReceivedProposalEntity {
     public ReceivedProposalEntity() {
     }
 
-    public ReceivedProposalEntity(String id, Proposal proposal, Representative representative,
+    public ReceivedProposalEntity( ProposalEntity proposal, RepresentativeEntity representative,
                                   LocalDate presentationProposalDate, Boolean status, Double requestedMoney) {
-        this.id = id;
+
         this.proposal = proposal;
         this.representative = representative;
         this.presentationProposalDate = presentationProposalDate;
@@ -45,27 +42,20 @@ public class ReceivedProposalEntity {
         this.requestedMoney = requestedMoney;
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Proposal getProposal() {
+    public ProposalEntity getProposal() {
         return proposal;
     }
 
-    public void setProposal(Proposal proposal) {
+    public void setProposal(ProposalEntity proposal) {
         this.proposal = proposal;
     }
 
-    public Representative getRepresentative() {
+    public RepresentativeEntity getRepresentative() {
         return representative;
     }
 
-    public void setRepresentative(Representative representative) {
+    public void setRepresentative(RepresentativeEntity representative) {
         this.representative = representative;
     }
 

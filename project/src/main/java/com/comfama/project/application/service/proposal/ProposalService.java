@@ -16,12 +16,10 @@ import java.util.Optional;
 public class ProposalService implements IProposalService {
 
     private final ProposalJpaRepository repository;
-    private final ProposerService proposerService;
     private final ProposerJpaRepository proposerJpaRepository;
 
-    public ProposalService(ProposalJpaRepository repository, ProposerService proposerService, ProposerJpaRepository proposerJpaRepository) {
+    public ProposalService(ProposalJpaRepository repository, ProposerJpaRepository proposerJpaRepository) {
         this.repository = repository;
-        this.proposerService = proposerService;
         this.proposerJpaRepository = proposerJpaRepository;
     }
 

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 public class Proposal {
 
+    private Integer id;
+
     private String name;
 
     private String descriptionActivities;
@@ -22,8 +24,9 @@ public class Proposal {
     public Proposal() {
     }
 
-    public Proposal(String name, String descriptionActivities, String descriptionProposal,
+    public Proposal(Integer id, String name, String descriptionActivities, String descriptionProposal,
                     String focusedPeople, LocalDate beginningDate, Double totalMoney, Proposer proposer) {
+        this.id = id;
         this.name = name;
         this.descriptionActivities = descriptionActivities;
         this.descriptionProposal = descriptionProposal;
@@ -31,6 +34,14 @@ public class Proposal {
         this.beginningDate = beginningDate;
         this.totalMoney = totalMoney;
         this.proposer = proposer;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

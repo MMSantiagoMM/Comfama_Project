@@ -4,6 +4,7 @@ import com.comfama.project.domain.models.ReceivedProposal;
 import com.comfama.project.domain.ports.IReceivedProposalRepository;
 import com.comfama.project.infrastructure.adapters.proposal.IProposalJpaRepository;
 import com.comfama.project.infrastructure.adapters.representative.IRepresentativeJpaRepository;
+import com.comfama.project.infrastructure.entities.ReceivedProposalEntity;
 import com.comfama.project.infrastructure.exceptions.ReceivedProposalNotFoundException;
 import com.comfama.project.infrastructure.mappers.ReceivedProposalMapper;
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,7 @@ public class ReceivedProposalJpaRepository implements IReceivedProposalRepositor
 
     @Override
     public List<ReceivedProposal> getReceivedProposals() {
+
         return mapper.toReceivedProposals(repository.findAll());
     }
 
@@ -40,8 +42,22 @@ public class ReceivedProposalJpaRepository implements IReceivedProposalRepositor
     }
 
     @Override
-    public ReceivedProposal createReceivedProposal(Long id) {
-        return null;
+    public ReceivedProposal createReceivedProposal(ReceivedProposal receivedProposal) {
+        ReceivedProposalEntity entity = new ReceivedProposalEntity();
+        entity.setProposal(proposalRepository.findById(
+                receivedProposal.getProposal().getId()).get());
+
+        entity.setRepresentative(representativeRepository.findById(
+                receivedProposal.getRepresentative().getId()).get());
+
+        entity.setPresentationProposalDate(receivedProposal.getPresentationProposalDate());
+        entity.setStatus(receivedProposal.getStatus());
+        entity.setRequestedMoney(receivedProposal.getRequestedMoney());
+
+        repository.save(entity);
+
+        return receivedProposal;
+
     }
 
     @Override

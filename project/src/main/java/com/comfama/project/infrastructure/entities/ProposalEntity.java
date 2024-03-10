@@ -1,7 +1,6 @@
 package com.comfama.project.infrastructure.entities;
 
 
-import com.comfama.project.domain.models.Proposer;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -40,8 +39,9 @@ public class ProposalEntity {
     public ProposalEntity() {
     }
 
-    public ProposalEntity(String name, String descriptionActivities, String descriptionProposal, String focusedPeople,
+    public ProposalEntity(Integer id, String name, String descriptionActivities, String descriptionProposal, String focusedPeople,
                           LocalDate beginningDate, Double totalMoney, ProposerEntity proposer) {
+        this.id = id;
         this.name = name;
         this.descriptionActivities = descriptionActivities;
         this.descriptionProposal = descriptionProposal;
@@ -49,6 +49,14 @@ public class ProposalEntity {
         this.beginningDate = beginningDate;
         this.totalMoney = totalMoney;
         this.proposer = proposer;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

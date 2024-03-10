@@ -7,9 +7,9 @@ import java.time.LocalDate;
 
 public class ReceivedProposalDTO {
 
-    private Proposal proposal;
+    private Integer idProposal;
 
-    private Representative representative;
+    private Integer idRepresentative;
 
     private LocalDate presentationProposalDate;
 
@@ -21,29 +21,31 @@ public class ReceivedProposalDTO {
     public ReceivedProposalDTO() {
     }
 
-    public ReceivedProposalDTO(Proposal proposal, Representative representative,
-                            LocalDate presentationProposalDate, Boolean status, Double requestedMoney) {
-        this.proposal = proposal;
-        this.representative = representative;
+    public ReceivedProposalDTO(Integer idProposal, Integer idRepresentative,
+                               LocalDate presentationProposalDate, Boolean status,
+                               Double requestedMoney) {
+        this.idProposal = idProposal;
+        this.idRepresentative = idRepresentative;
         this.presentationProposalDate = presentationProposalDate;
         this.status = status;
         this.requestedMoney = requestedMoney;
     }
 
-    public Proposal getProposal() {
-        return proposal;
+
+    public Integer getIdProposal() {
+        return idProposal;
     }
 
-    public void setProposal(Proposal proposal) {
-        this.proposal = proposal;
+    public void setIdProposal(Integer idProposal) {
+        this.idProposal = idProposal;
     }
 
-    public Representative getRepresentative() {
-        return representative;
+    public Integer getIdRepresentative() {
+        return idRepresentative;
     }
 
-    public void setRepresentative(Representative representative) {
-        this.representative = representative;
+    public void setIdRepresentative(Integer idRepresentative) {
+        this.idRepresentative = idRepresentative;
     }
 
     public LocalDate getPresentationProposalDate() {

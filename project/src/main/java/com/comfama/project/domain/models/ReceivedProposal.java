@@ -1,5 +1,7 @@
 package com.comfama.project.domain.models;
 
+import com.comfama.project.infrastructure.entities.ProposalEntity;
+
 import java.time.LocalDate;
 
 public class ReceivedProposal {
