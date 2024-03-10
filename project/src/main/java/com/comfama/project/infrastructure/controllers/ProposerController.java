@@ -1,6 +1,7 @@
 package com.comfama.project.infrastructure.controllers;
 
 
+import com.comfama.project.application.dto.ProposalDTO;
 import com.comfama.project.application.dto.ProposerDTO;
 import com.comfama.project.application.service.proposer.ProposerService;
 import com.comfama.project.domain.models.Proposer;
@@ -33,6 +34,13 @@ public class ProposerController implements IMethodsController<Proposer, Proposer
     @PostMapping
     public ResponseEntity<Proposer> create(ProposerDTO proposerDTO) {
         return new ResponseEntity<>(service.createProposer(proposerDTO),HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Proposer> update(@PathVariable Long id, @RequestBody ProposerDTO dto){
+        return service.updateProposer(id,dto)
+                .map(proposer -> new ResponseEntity<>(proposer,HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Override

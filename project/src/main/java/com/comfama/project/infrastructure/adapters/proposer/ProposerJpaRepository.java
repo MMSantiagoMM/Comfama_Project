@@ -41,6 +41,19 @@ public class ProposerJpaRepository implements IProposerRepository {
     }
 
     @Override
+    public Optional<Proposer> update(Long id, Proposer newProposer) {
+        return Optional.ofNullable(repository.findById(id)
+                .map(proposer -> {
+                    proposer.setName(newProposer.getName());
+                    proposer.setTypeOfProposer(newProposer.getTypeOfProposer());
+                    proposer.setAlliedCompanies(newProposer.getAlliedCompanies());
+                    proposer.setUrlDocuments(newProposer.getUrlDocuments());
+                    proposer.setTrajectoryDescription(newProposer.getTrajectoryDescription());
+                    return mapper.toProposer(repository.save(proposer));
+                }).orElseThrow(()-> new ProposerNotFoundException(id)));
+    }
+
+    @Override
     public Boolean deleteProposer(Long id) {
         if(repository.existsById(id)){
             repository.deleteById(id);

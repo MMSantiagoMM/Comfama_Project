@@ -14,6 +14,8 @@ public interface IProposerRepository {
 
     Proposer createProposer(Proposer proposer);
 
+    Optional<Proposer> update(Long id, Proposer proposer);
+
     Boolean deleteProposer(Long id);
 
 }
