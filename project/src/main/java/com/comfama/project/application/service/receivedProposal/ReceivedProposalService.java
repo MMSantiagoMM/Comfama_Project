@@ -7,6 +7,7 @@ import com.comfama.project.domain.models.ReceivedProposal;
 import com.comfama.project.infrastructure.adapters.proposal.ProposalJpaRepository;
 import com.comfama.project.infrastructure.adapters.receivedProposal.ReceivedProposalJpaRepository;
 import com.comfama.project.infrastructure.adapters.representative.RepresentativeJpaRepository;
+import com.comfama.project.infrastructure.exceptions.ReceivedProposalNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,6 +51,22 @@ public class ReceivedProposalService implements IReceivedProposalService {
         receivedProposal.setRequestedMoney(dto.getRequestedMoney());
 
         return repository.createReceivedProposal(receivedProposal);
+    }
+
+    @Override
+    public Optional<ReceivedProposal> updateReceivedProposal(Long id, ReceivedProposalDTO dto) {
+        return Optional.ofNullable(repository.getReceivedProposal(id)
+                .map(nrp -> {
+                    nrp.setProposal(proposalRepository.getProposal(
+                            dto.getIdProposal()).get());
+                    nrp.setRepresentative(representativeRepository.getRepresentative(
+                            dto.getIdRepresentative()).get());
+                    nrp.setRequestedMoney(dto.getRequestedMoney());
+                    nrp.setStatus(dto.getStatus());
+                    nrp.setPresentationProposalDate(dto.getPresentationProposalDate());
+                    repository.updateProposal(id,nrp);
+                    return nrp;
+                }).orElseThrow(()-> new ReceivedProposalNotFoundException(id)));
     }
 
     @Override

@@ -5,12 +5,15 @@ import com.comfama.project.domain.ports.IReceivedProposalRepository;
 import com.comfama.project.infrastructure.adapters.proposal.IProposalJpaRepository;
 import com.comfama.project.infrastructure.adapters.representative.IRepresentativeJpaRepository;
 import com.comfama.project.infrastructure.entities.ReceivedProposalEntity;
+import com.comfama.project.infrastructure.exceptions.ProposalNotFoundException;
 import com.comfama.project.infrastructure.exceptions.ReceivedProposalNotFoundException;
 import com.comfama.project.infrastructure.mappers.ReceivedProposalMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 
 @Repository
@@ -58,6 +61,21 @@ public class ReceivedProposalJpaRepository implements IReceivedProposalRepositor
 
         return receivedProposal;
 
+    }
+
+    @Override
+    public Optional<ReceivedProposal> updateProposal(Long id, ReceivedProposal newReceivedProposal) {
+        return Optional.ofNullable(repository.findById(id)
+                .map(nrp -> {
+                    nrp.setProposal(proposalRepository.findById(
+                            newReceivedProposal.getProposal().getId()).get());
+                    nrp.setRepresentative(representativeRepository.findById(
+                            newReceivedProposal.getRepresentative().getId()).get());
+                    nrp.setRequestedMoney(newReceivedProposal.getRequestedMoney());
+                    nrp.setStatus(newReceivedProposal.getStatus());
+                    nrp.setPresentationProposalDate(newReceivedProposal.getPresentationProposalDate());
+                    return mapper.toReceivedProposal(repository.save(nrp));
+                }).orElseThrow(()-> new ReceivedProposalNotFoundException(id)));
     }
 
     @Override

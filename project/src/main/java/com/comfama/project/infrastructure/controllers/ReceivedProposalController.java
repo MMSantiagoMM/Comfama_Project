@@ -36,6 +36,14 @@ public class ReceivedProposalController implements IMethodsController<ReceivedPr
     }
 
     @Override
+    @PutMapping("/{id}")
+    public ResponseEntity<ReceivedProposal> update(Long id, ReceivedProposalDTO dto) {
+        return service.updateReceivedProposal(id,dto)
+                .map(proposer -> new ResponseEntity<>(proposer,HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(Long id) {
         if(service.deleteReceivedProposal(id)){

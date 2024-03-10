@@ -16,6 +16,8 @@ public interface IMethodsController<T,U,I> {
 
     ResponseEntity<T> create(@RequestBody U u);
 
+    ResponseEntity<T> update(@PathVariable I i, @RequestBody U u);
+
     ResponseEntity<Void> delete(@PathVariable I i);
 
 

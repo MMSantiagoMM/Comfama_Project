@@ -14,6 +14,8 @@ public interface IReceivedProposalService {
 
     ReceivedProposal createReceivedProposal(ReceivedProposalDTO dto);
 
+    Optional<ReceivedProposal> updateReceivedProposal(Long id, ReceivedProposalDTO dto);
+
     Boolean deleteReceivedProposal(Long id);
 
 
