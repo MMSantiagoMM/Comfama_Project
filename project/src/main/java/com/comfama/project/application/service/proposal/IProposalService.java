@@ -14,6 +14,8 @@ public interface IProposalService {
 
     Proposal createProposal(ProposalDTO dto);
 
+    Optional<Proposal> updateProposal(Integer id, ProposalDTO dto);
+
     Boolean deleteProposal(Integer id);
 
 

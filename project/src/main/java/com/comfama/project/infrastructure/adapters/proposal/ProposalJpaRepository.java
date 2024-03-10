@@ -8,6 +8,8 @@ import com.comfama.project.infrastructure.adapters.proposer.IProposerJpaReposito
 import com.comfama.project.infrastructure.adapters.proposer.ProposerJpaRepository;
 import com.comfama.project.infrastructure.entities.ProposalEntity;
 import com.comfama.project.infrastructure.exceptions.ProposalNotFoundException;
+import com.comfama.project.infrastructure.exceptions.ProposerNotFoundException;
+import com.comfama.project.infrastructure.exceptions.RepresentativeNotFoundException;
 import com.comfama.project.infrastructure.mappers.ProposalMapper;
 import org.springframework.stereotype.Repository;
 
@@ -57,6 +59,22 @@ public class ProposalJpaRepository implements IProposalRepository {
 
         repository.save(proposalEntity);
         return proposal;
+    }
+
+    @Override
+    public Optional<Proposal> updateProposal(Integer id, Proposal newProposal) {
+        return Optional.ofNullable(repository.findById(id)
+                .map(proposal -> {
+                    proposal.setName(newProposal.getName());
+                    proposal.setDescriptionProposal(newProposal.getDescriptionProposal());
+                    proposal.setProposer(proposerRepository.findById(
+                            newProposal.getProposer().getId()).get());
+                    proposal.setFocusedPeople(newProposal.getFocusedPeople());
+                    proposal.setDescriptionActivities(newProposal.getDescriptionActivities());
+                    proposal.setTotalMoney(newProposal.getTotalMoney());
+                    proposal.setBeginningDate(newProposal.getBeginningDate());
+                    return mapper.toProposal(repository.save(proposal));
+                }).orElseThrow(()-> new ProposalNotFoundException(id)));
     }
 
     @Override

@@ -35,6 +35,13 @@ public class ProposalController implements IMethodsController<Proposal, Proposal
         return new ResponseEntity<>(service.createProposal(proposalDTO),HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Proposal> update(@PathVariable Integer id, ProposalDTO dto){
+        return service.updateProposal(id,dto)
+                .map(proposer -> new ResponseEntity<>(proposer,HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(Integer id) {
