@@ -1,4 +1,4 @@
-package com.comfama.project.infrastructure.exceptions;
+package com.comfama.project.infrastructure.exceptions.representative;
 
 import java.util.UUID;
 

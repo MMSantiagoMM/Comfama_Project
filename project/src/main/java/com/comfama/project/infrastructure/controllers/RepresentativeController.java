@@ -19,18 +19,18 @@ public class RepresentativeController implements IMethodsController<Representati
     @Override
     @GetMapping
     public ResponseEntity<Iterable<?>> getAll() {
-        return new ResponseEntity<>(service.getRepresentatives(),HttpStatus.OK);
+        return new ResponseEntity<>(service.getRepresentatives().get(),HttpStatus.OK);
     }
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Representative> getOne(Integer id) {
+    public ResponseEntity<?> getOne(Integer id) {
         return new ResponseEntity<>(service.getRepresentativeById(id),HttpStatus.OK);
     }
 
     @Override
     @PostMapping
-    public ResponseEntity<Representative> create(RepresentativeDTO dto) {
+    public ResponseEntity<?> create(RepresentativeDTO dto) {
         return new ResponseEntity<>(service.saveRepresentative(dto),HttpStatus.CREATED);
     }
 

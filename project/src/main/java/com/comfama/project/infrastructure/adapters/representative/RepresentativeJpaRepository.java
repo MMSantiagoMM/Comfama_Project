@@ -4,13 +4,12 @@ package com.comfama.project.infrastructure.adapters.representative;
 import com.comfama.project.domain.models.Representative;
 import com.comfama.project.domain.ports.IRepresentativeRepository;
 import com.comfama.project.infrastructure.entities.RepresentativeEntity;
-import com.comfama.project.infrastructure.exceptions.ProposerNotFoundException;
-import com.comfama.project.infrastructure.exceptions.RepresentativeNotFoundException;
+import com.comfama.project.infrastructure.exceptions.representative.RepresentativeNotFoundException;
 import com.comfama.project.infrastructure.mappers.RepresentativeMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class RepresentativeJpaRepository implements IRepresentativeRepository {
@@ -26,7 +25,7 @@ public class RepresentativeJpaRepository implements IRepresentativeRepository {
 
 
     @Override
-    public Iterable<Representative> getAllRepresentatives() {
+    public List<Representative> getAllRepresentatives() {
         return mapper.toRepresentatives(repository.findAll());
     }
 
