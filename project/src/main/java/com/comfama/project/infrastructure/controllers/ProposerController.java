@@ -20,18 +20,18 @@ public class ProposerController implements IMethodsController<Proposer, Proposer
     @Override
     @GetMapping
     public ResponseEntity<Iterable<?>> getAll() {
-        return new ResponseEntity<>(service.getProposers(), HttpStatus.OK);
+        return new ResponseEntity<>(service.getProposers().get(), HttpStatus.OK);
     }
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Proposer> getOne(Long id) {
+    public ResponseEntity<?> getOne(Long id) {
         return new ResponseEntity<>(service.getProposer(id),HttpStatus.OK);
     }
 
     @Override
     @PostMapping
-    public ResponseEntity<Proposer> create(ProposerDTO proposerDTO) {
+    public ResponseEntity<?> create(ProposerDTO proposerDTO) {
         return new ResponseEntity<>(service.createProposer(proposerDTO),HttpStatus.CREATED);
     }
 

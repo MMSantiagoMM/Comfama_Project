@@ -8,13 +8,13 @@ import java.util.Optional;
 
 public interface IProposerService {
 
-    List<Proposer> getProposers();
+    Optional<List<?>> getProposers();
 
-    Proposer getProposer(Long id);
+    Optional<?> getProposer(Long id);
 
-    Proposer createProposer(ProposerDTO dto);
+    Optional<?> createProposer(ProposerDTO dto);
 
-    Optional<Proposer> updateProposer(Long id, ProposerDTO dto);
+    Optional<?> updateProposer(Long id, ProposerDTO dto);
     Boolean deleteProposer(Long id);
 
 

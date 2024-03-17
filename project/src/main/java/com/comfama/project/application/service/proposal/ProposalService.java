@@ -68,8 +68,6 @@ public class ProposalService implements IProposalService {
         }
     }
 
-
-
     @Override
     public Optional<?> updateProposal(Integer id, ProposalDTO dto) {
         try{
@@ -91,7 +89,6 @@ public class ProposalService implements IProposalService {
             proposalError.setErrorMessage(e.getMessage());
             return Optional.of(proposalError.getErrorMessage());
         }
-
     }
 
     @Override
