@@ -5,7 +5,7 @@ import com.comfama.project.domain.ports.IReceivedProposalRepository;
 import com.comfama.project.infrastructure.adapters.proposal.IProposalJpaRepository;
 import com.comfama.project.infrastructure.adapters.representative.IRepresentativeJpaRepository;
 import com.comfama.project.infrastructure.entities.ReceivedProposalEntity;
-import com.comfama.project.infrastructure.exceptions.ReceivedProposalNotFoundException;
+import com.comfama.project.infrastructure.exceptions.receivedProposal.ReceivedProposalNotFoundException;
 import com.comfama.project.infrastructure.mappers.ReceivedProposalMapper;
 import org.springframework.stereotype.Repository;
 

@@ -3,7 +3,7 @@ package com.comfama.project.infrastructure.adapters.proposer;
 import com.comfama.project.domain.models.Proposer;
 import com.comfama.project.domain.ports.IProposerRepository;
 import com.comfama.project.infrastructure.entities.ProposerEntity;
-import com.comfama.project.infrastructure.exceptions.ProposerNotFoundException;
+import com.comfama.project.infrastructure.exceptions.proposer.ProposerNotFoundException;
 import com.comfama.project.infrastructure.mappers.ProposerMapper;
 import org.springframework.stereotype.Repository;
 

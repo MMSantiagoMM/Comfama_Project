@@ -84,6 +84,7 @@ public class RepresentativeService implements IRepresentativeService{
                         }).orElseThrow(()-> new RepresentativeNotFoundException(id)));
             }else{
                 return Optional.of(new RepresentativeNotFoundException(id));
+
             }
         }catch (RepresentativeNotCreatedException e){
             RepresentativeError representativeError = new RepresentativeError();

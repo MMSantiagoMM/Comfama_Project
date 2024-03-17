@@ -8,13 +8,13 @@ import java.util.Optional;
 
 public interface IReceivedProposalService {
 
-    List<ReceivedProposal> getReceivedProposals();
+    Optional<List<?>> getReceivedProposals();
 
-    Optional<ReceivedProposal> getReceivedProposal(Long id);
+    Optional<?> getReceivedProposal(Long id);
 
-    ReceivedProposal createReceivedProposal(ReceivedProposalDTO dto);
+    Optional<?> createReceivedProposal(ReceivedProposalDTO dto);
 
-    Optional<ReceivedProposal> updateReceivedProposal(Long id, ReceivedProposalDTO dto);
+    Optional<?> updateReceivedProposal(Long id, ReceivedProposalDTO dto);
 
     Boolean deleteReceivedProposal(Long id);
 

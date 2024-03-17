@@ -5,12 +5,11 @@ import com.comfama.project.application.mappers.ProposerMapperDto;
 import com.comfama.project.domain.errors.ProposerError;
 import com.comfama.project.domain.models.Proposer;
 import com.comfama.project.infrastructure.adapters.proposer.ProposerJpaRepository;
-import com.comfama.project.infrastructure.exceptions.ProposerNotFoundException;
+import com.comfama.project.infrastructure.exceptions.proposer.ProposerNotFoundException;
 import com.comfama.project.infrastructure.exceptions.proposer.ProposerNotCreatedException;
 import com.comfama.project.infrastructure.exceptions.proposer.ProposersNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

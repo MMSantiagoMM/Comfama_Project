@@ -20,18 +20,18 @@ public class ReceivedProposalController implements IMethodsController<ReceivedPr
     @Override
     @GetMapping
     public ResponseEntity<Iterable<?>> getAll() {
-        return new ResponseEntity<>(service.getReceivedProposals(), HttpStatus.OK);
+        return new ResponseEntity<>(service.getReceivedProposals().get(), HttpStatus.OK);
     }
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<ReceivedProposal> getOne(Long id) {
+    public ResponseEntity<?> getOne(Long id) {
         return new ResponseEntity<>(service.getReceivedProposal(id).get(),HttpStatus.OK);
     }
 
     @Override
     @PostMapping
-    public ResponseEntity<ReceivedProposal> create(ReceivedProposalDTO dto) {
+    public ResponseEntity<?> create(ReceivedProposalDTO dto) {
         return new ResponseEntity<>(service.createReceivedProposal(dto),HttpStatus.CREATED);
     }
 

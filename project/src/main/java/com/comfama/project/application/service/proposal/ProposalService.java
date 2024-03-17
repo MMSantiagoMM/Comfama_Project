@@ -81,6 +81,7 @@ public class ProposalService implements IProposalService {
                         }).orElseThrow(()-> new ProposalNotFoundException(id)));
                         }
             else{
+                //throw new ProposalNotFoundException(id);
                 return Optional.of(new ProposalNotFoundException(id));
             }
         }
