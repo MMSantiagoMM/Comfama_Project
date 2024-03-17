@@ -1,15 +1,11 @@
 package com.comfama.project.infrastructure.adapters.proposal;
 
-import com.comfama.project.application.service.proposer.ProposerService;
 import com.comfama.project.domain.models.Proposal;
 import com.comfama.project.domain.ports.IProposalRepository;
-import com.comfama.project.domain.ports.IProposerRepository;
 import com.comfama.project.infrastructure.adapters.proposer.IProposerJpaRepository;
-import com.comfama.project.infrastructure.adapters.proposer.ProposerJpaRepository;
 import com.comfama.project.infrastructure.entities.ProposalEntity;
-import com.comfama.project.infrastructure.exceptions.ProposalNotFoundException;
-import com.comfama.project.infrastructure.exceptions.ProposerNotFoundException;
-import com.comfama.project.infrastructure.exceptions.RepresentativeNotFoundException;
+import com.comfama.project.infrastructure.exceptions.proposal.ProposalNotFoundException;
+import com.comfama.project.infrastructure.exceptions.proposal.ProposalsNotFoundException;
 import com.comfama.project.infrastructure.mappers.ProposalMapper;
 import org.springframework.stereotype.Repository;
 
@@ -31,8 +27,10 @@ public class ProposalJpaRepository implements IProposalRepository {
 
 
     @Override
-    public List<Proposal> getProposals() {
-        return mapper.toProposals(repository.findAll());
+    public Optional<List<?>> getProposals() {
+
+        return Optional.of(List.of(Optional.of((mapper.toProposals(repository.findAll())))
+                .orElseThrow(ProposalsNotFoundException::new)));
     }
 
     @Override
@@ -45,7 +43,6 @@ public class ProposalJpaRepository implements IProposalRepository {
     public Proposal createProposal(Proposal proposal) {
 
         ProposalEntity proposalEntity = new ProposalEntity();
-
 
         proposalEntity.setName(proposal.getName());
         proposalEntity.setDescriptionActivities(proposal.getDescriptionActivities());

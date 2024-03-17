@@ -19,24 +19,24 @@ public class ProposalController implements IMethodsController<Proposal, Proposal
 
     @Override
     @GetMapping
-    public ResponseEntity<Iterable<Proposal>> getAll() {
-        return new ResponseEntity<>(service.getProposals(), HttpStatus.OK);
+    public ResponseEntity<Iterable<?>> getAll() {
+        return new ResponseEntity<>(service.getProposals().get(), HttpStatus.OK);
     }
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Proposal> getOne(Integer id) {
+    public ResponseEntity<?> getOne(Integer id) {
         return new ResponseEntity<>(service.getProposal(id).get(),HttpStatus.OK);
     }
 
     @Override
     @PostMapping
-    public ResponseEntity<Proposal> create(ProposalDTO proposalDTO) {
+    public ResponseEntity<?> create(ProposalDTO proposalDTO) {
         return new ResponseEntity<>(service.createProposal(proposalDTO),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Proposal> update(@PathVariable Integer id, ProposalDTO dto){
+    public ResponseEntity<?> update(@PathVariable Integer id, ProposalDTO dto){
         return service.updateProposal(id,dto)
                 .map(proposer -> new ResponseEntity<>(proposer,HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

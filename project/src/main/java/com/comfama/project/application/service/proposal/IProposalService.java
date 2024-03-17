@@ -8,13 +8,13 @@ import java.util.Optional;
 
 public interface IProposalService {
 
-    List<Proposal> getProposals();
+    Optional<List<?>> getProposals();
 
-    Optional<Proposal> getProposal(Integer id);
+    Optional<?> getProposal(Integer id);
 
-    Proposal createProposal(ProposalDTO dto);
+    Optional<?> createProposal(ProposalDTO dto);
 
-    Optional<Proposal> updateProposal(Integer id, ProposalDTO dto);
+    Optional<?> updateProposal(Integer id, ProposalDTO dto);
 
     Boolean deleteProposal(Integer id);
 

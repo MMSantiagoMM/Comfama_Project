@@ -5,15 +5,12 @@ import com.comfama.project.domain.ports.IReceivedProposalRepository;
 import com.comfama.project.infrastructure.adapters.proposal.IProposalJpaRepository;
 import com.comfama.project.infrastructure.adapters.representative.IRepresentativeJpaRepository;
 import com.comfama.project.infrastructure.entities.ReceivedProposalEntity;
-import com.comfama.project.infrastructure.exceptions.ProposalNotFoundException;
 import com.comfama.project.infrastructure.exceptions.ReceivedProposalNotFoundException;
 import com.comfama.project.infrastructure.mappers.ReceivedProposalMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 
 @Repository

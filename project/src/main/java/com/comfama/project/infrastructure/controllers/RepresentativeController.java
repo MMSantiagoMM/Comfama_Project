@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("representative")
 public class RepresentativeController implements IMethodsController<Representative,RepresentativeDTO,Integer>{
@@ -20,7 +18,7 @@ public class RepresentativeController implements IMethodsController<Representati
 
     @Override
     @GetMapping
-    public ResponseEntity<Iterable<Representative>> getAll() {
+    public ResponseEntity<Iterable<?>> getAll() {
         return new ResponseEntity<>(service.getRepresentatives(),HttpStatus.OK);
     }
 
@@ -37,7 +35,7 @@ public class RepresentativeController implements IMethodsController<Representati
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Representative> update(@PathVariable Integer id, RepresentativeDTO dto){
+    public ResponseEntity<?> update(@PathVariable Integer id, RepresentativeDTO dto){
         return service.updateRepresentative(id,dto)
                 .map(proposer -> new ResponseEntity<>(proposer,HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

@@ -2,12 +2,13 @@ package com.comfama.project.application.service.proposal;
 
 
 import com.comfama.project.application.dto.ProposalDTO;
-import com.comfama.project.application.service.proposer.ProposerService;
+import com.comfama.project.domain.errors.ProposalError;
 import com.comfama.project.domain.models.Proposal;
 import com.comfama.project.infrastructure.adapters.proposal.ProposalJpaRepository;
-import com.comfama.project.infrastructure.adapters.proposer.IProposerJpaRepository;
 import com.comfama.project.infrastructure.adapters.proposer.ProposerJpaRepository;
-import com.comfama.project.infrastructure.exceptions.ProposalNotFoundException;
+import com.comfama.project.infrastructure.exceptions.proposal.ProposalNotCreatedException;
+import com.comfama.project.infrastructure.exceptions.proposal.ProposalNotFoundException;
+import com.comfama.project.infrastructure.exceptions.proposal.ProposalsNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,51 +24,119 @@ public class ProposalService implements IProposalService {
         this.repository = repository;
         this.proposerJpaRepository = proposerJpaRepository;
     }
-
     @Override
-    public List<Proposal> getProposals() {
-        return repository.getProposals();
+    public Optional<List<?>> getProposals() {
+        try{
+            if(repository.getProposals().isPresent()){
+                return Optional.of(repository.getProposals().get());
+            }else{
+                throw new ProposalsNotFoundException();
+            }
+
+        }catch (Exception e){
+            ProposalError proposalError = new ProposalError();
+            proposalError.setErrorMessage(e.getMessage());
+            List<String> message = List.of(proposalError.getErrorMessage());
+            return Optional.of(message);
+        }
     }
 
     @Override
-    public Optional<Proposal> getProposal(Integer id) {
-        return Optional.of(repository.getProposal(id).get());
+    public Optional<?> getProposal(Integer id) {
+        try{
+            return Optional.of(repository.getProposal(id).get());
+        }catch (Exception e){
+            ProposalError proposalError = new ProposalError();
+            proposalError.setErrorMessage(e.getMessage());
+            return Optional.ofNullable(proposalError.getErrorMessage());
+        }
     }
 
     @Override
-    public Proposal createProposal(ProposalDTO dto) {
-        Proposal proposal = new Proposal();
+    public Optional<?> createProposal(ProposalDTO dto) {
+        try{
+            Proposal proposal = new Proposal();
+            validate(dto, proposal);
 
+            return Optional.of(repository.createProposal(proposal));
 
-        proposal.setName(dto.getName());
-        proposal.setDescriptionProposal(dto.getDescriptionProposal());
-        proposal.setDescriptionActivities(dto.getDescriptionActivities());
-        proposal.setFocusedPeople(dto.getFocusedPeople());
-        proposal.setBeginningDate(dto.getBeginningDate());
-        proposal.setTotalMoney(dto.getTotalMoney());
-        proposal.setProposer(proposerJpaRepository.getProposer(dto.getIdProposer()).get());
-
-        return repository.createProposal(proposal);
+        }
+        catch (ProposalNotCreatedException e) {
+            ProposalError proposalError = new ProposalError();
+            proposalError.setErrorMessage(e.getMessage());
+            return Optional.of(proposalError.getErrorMessage());
+        }
     }
 
+
+
     @Override
-    public Optional<Proposal> updateProposal(Integer id, ProposalDTO dto) {
-        return Optional.ofNullable(repository.getProposal(id)
-                .map(proposal -> {
-                    proposal.setName(dto.getName());
-                    proposal.setDescriptionProposal(dto.getDescriptionProposal());
-                    proposal.setProposer(proposerJpaRepository.getProposer(dto.getIdProposer()).get());
-                    proposal.setFocusedPeople(dto.getFocusedPeople());
-                    proposal.setDescriptionActivities(dto.getDescriptionActivities());
-                    proposal.setTotalMoney(dto.getTotalMoney());
-                    proposal.setBeginningDate(dto.getBeginningDate());
-                    repository.updateProposal(id,proposal);
-                    return proposal;
-                }).orElseThrow(()-> new ProposalNotFoundException(id)));
+    public Optional<?> updateProposal(Integer id, ProposalDTO dto) {
+        try{
+            if(repository.getProposals().isPresent()){
+                return Optional.ofNullable(repository.getProposal(id)
+                        .map(proposal -> {
+                            validate(dto,proposal);
+                            repository.updateProposal(id,proposal);
+                            return proposal;
+
+                        }).orElseThrow(()-> new ProposalNotFoundException(id)));
+                        }
+            else{
+                return Optional.of(new ProposalNotFoundException(id));
+            }
+        }
+        catch (Exception e){
+            ProposalError proposalError = new ProposalError();
+            proposalError.setErrorMessage(e.getMessage());
+            return Optional.of(proposalError.getErrorMessage());
+        }
+
     }
 
     @Override
     public Boolean deleteProposal(Integer id) {
         return repository.deleteProposal(id);
     }
+
+
+    private void validate(ProposalDTO dto, Proposal proposal) {
+        if(dto.getName().isEmpty()){
+            throw new ProposalNotCreatedException("Name is required");
+        }else{
+            proposal.setName(dto.getName());
+        }
+        if(dto.getDescriptionProposal().isEmpty()){
+            throw new ProposalNotCreatedException("Description Proposal is required");
+        }else{
+            proposal.setDescriptionProposal(dto.getDescriptionProposal());
+        }
+        if(dto.getDescriptionActivities().isEmpty()){
+            throw new ProposalNotCreatedException("Description activities is required");
+        }else{
+            proposal.setDescriptionActivities(dto.getDescriptionActivities());
+        }
+        if(dto.getFocusedPeople().isEmpty()){
+            throw new ProposalNotCreatedException("Focused people is required");
+        }else{
+            proposal.setFocusedPeople(dto.getFocusedPeople());
+        }
+        if(dto.getBeginningDate()==null){
+            throw new ProposalNotCreatedException("Date must not be empty");
+        }else{
+            proposal.setBeginningDate(dto.getBeginningDate());
+        }
+        if(dto.getTotalMoney().isNaN() || dto.getTotalMoney()==null){
+            throw new ProposalNotCreatedException("Money is required");
+        }else{
+            proposal.setTotalMoney(dto.getTotalMoney());
+        }
+        if(proposerJpaRepository.getProposer(dto.getIdProposer()).isEmpty()){
+            throw new ProposalNotCreatedException("Proposer is required");
+        }else{
+            proposal.setProposer(proposerJpaRepository.getProposer(dto.getIdProposer()).get());
+        }
+    }
+
+
 }

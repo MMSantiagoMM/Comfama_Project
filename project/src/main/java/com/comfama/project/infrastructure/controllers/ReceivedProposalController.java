@@ -19,7 +19,7 @@ public class ReceivedProposalController implements IMethodsController<ReceivedPr
 
     @Override
     @GetMapping
-    public ResponseEntity<Iterable<ReceivedProposal>> getAll() {
+    public ResponseEntity<Iterable<?>> getAll() {
         return new ResponseEntity<>(service.getReceivedProposals(), HttpStatus.OK);
     }
 
@@ -37,7 +37,7 @@ public class ReceivedProposalController implements IMethodsController<ReceivedPr
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<ReceivedProposal> update(Long id, ReceivedProposalDTO dto) {
+    public ResponseEntity<?> update(Long id, ReceivedProposalDTO dto) {
         return service.updateReceivedProposal(id,dto)
                 .map(proposer -> new ResponseEntity<>(proposer,HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
