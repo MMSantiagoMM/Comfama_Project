@@ -1,6 +1,7 @@
 package com.comfama.project.application.service.receivedProposal;
 
 import com.comfama.project.application.dto.ReceivedProposalDTO;
+import com.comfama.project.application.messages.MessageExc;
 import com.comfama.project.domain.errors.ReceivedProposalError;
 import com.comfama.project.domain.models.ReceivedProposal;
 import com.comfama.project.infrastructure.adapters.proposal.ProposalJpaRepository;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.comfama.project.application.messages.MessageExc.*;
 
 @Service
 public class ReceivedProposalService implements IReceivedProposalService {
@@ -105,24 +108,24 @@ public class ReceivedProposalService implements IReceivedProposalService {
 
     private void validate(ReceivedProposalDTO dto, ReceivedProposal receivedProposal) {
         if(proposalRepository.getProposal(dto.getIdProposal()).isEmpty()){
-            throw new ReceivedProposalNotCreatedException("Proposal is required");
+            throw new ReceivedProposalNotCreatedException(PROPOSAL.getMessage());
         }else {
             receivedProposal.setProposal(proposalRepository.getProposal(
                     dto.getIdProposal()).get());
         }
         if(representativeRepository.getRepresentative(dto.getIdRepresentative()).isEmpty()){
-            throw new ReceivedProposalNotCreatedException("Representative is required");
+            throw new ReceivedProposalNotCreatedException(REPRESENTATIVE.getMessage());
         }else{
             receivedProposal.setRepresentative(representativeRepository.getRepresentative(
                     dto.getIdRepresentative()).get());
         }
         if(dto.getPresentationProposalDate().equals("")){
-            throw new ReceivedProposalNotCreatedException("Date is required");
+            throw new ReceivedProposalNotCreatedException(DATE.getMessage());
         }else {
             receivedProposal.setPresentationProposalDate(dto.getPresentationProposalDate());
         }
         if(dto.getRequestedMoney().isNaN()){
-            throw new ReceivedProposalNotCreatedException("Money is required");
+            throw new ReceivedProposalNotCreatedException(MONEY.getMessage());
         }else {
             receivedProposal.setRequestedMoney(dto.getRequestedMoney());
         }

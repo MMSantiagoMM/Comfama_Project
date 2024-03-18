@@ -3,6 +3,7 @@ package com.comfama.project.application.service.representative;
 
 import com.comfama.project.application.dto.RepresentativeDTO;
 import com.comfama.project.application.mappers.RepresentativeMapperDto;
+import com.comfama.project.application.messages.MessageExc;
 import com.comfama.project.domain.errors.RepresentativeError;
 import com.comfama.project.domain.models.Representative;
 import com.comfama.project.infrastructure.adapters.representative.RepresentativeJpaRepository;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
+
+import static com.comfama.project.application.messages.MessageExc.*;
 
 @Service
 public class RepresentativeService implements IRepresentativeService{
@@ -105,32 +108,32 @@ public class RepresentativeService implements IRepresentativeService{
 
     private static void validate(RepresentativeDTO dto, Representative representative) {
         if(dto.getName().isEmpty()){
-            throw new RepresentativeNotCreatedException("Name is required");
+            throw new RepresentativeNotCreatedException(NAME.getMessage());
         }else{
             representative.setName(dto.getName());
         }
         if(dto.getLastName().isEmpty()){
-            throw new RepresentativeNotCreatedException("Last name is required");
+            throw new RepresentativeNotCreatedException(LAST_NAME.getMessage());
         }else{
             representative.setLastName(dto.getLastName());
         }
         if(dto.getEmail().isEmpty()){
-            throw new RepresentativeNotCreatedException("Email is required");
+            throw new RepresentativeNotCreatedException(EMAIL.getMessage());
         }else{
             representative.setEmail(dto.getEmail());
         }
         if(dto.getCelPhone().isEmpty()){
-            throw new RepresentativeNotCreatedException("Cellphone is required");
+            throw new RepresentativeNotCreatedException(CELLPHONE.getMessage());
         }else{
             representative.setCelPhone(dto.getCelPhone());
         }
         if(dto.getTelephone().isEmpty()){
-            throw new RepresentativeNotCreatedException("Telephone is required");
+            throw new RepresentativeNotCreatedException(TELEPHONE.getMessage());
         }else{
             representative.setTelephone(dto.getTelephone());
         }
         if(dto.getTypeDocument().isEmpty()){
-            throw new RepresentativeNotCreatedException("Type of document is required");
+            throw new RepresentativeNotCreatedException(TYPE_DOCUMENT.getMessage());
         }else{
             representative.setTypeDocument(dto.getTypeDocument());
         }

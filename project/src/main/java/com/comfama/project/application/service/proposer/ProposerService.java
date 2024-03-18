@@ -2,6 +2,7 @@ package com.comfama.project.application.service.proposer;
 
 import com.comfama.project.application.dto.ProposerDTO;
 import com.comfama.project.application.mappers.ProposerMapperDto;
+import com.comfama.project.application.messages.MessageExc;
 import com.comfama.project.domain.errors.ProposerError;
 import com.comfama.project.domain.models.Proposer;
 import com.comfama.project.infrastructure.adapters.proposer.ProposerJpaRepository;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.comfama.project.application.messages.MessageExc.*;
 
 @Service
 public class ProposerService implements IProposerService{
@@ -103,27 +106,27 @@ public class ProposerService implements IProposerService{
 
     private static void validate(ProposerDTO dto, Proposer proposer) {
         if(dto.getName().isEmpty()){
-            throw new ProposerNotCreatedException("Name is required");
+            throw new ProposerNotCreatedException(NAME.getMessage());
         }else{
             proposer.setName(dto.getName());
         }
         if(dto.getTypeOfProposer().isEmpty()){
-            throw new ProposerNotCreatedException("type of proposer is required");
+            throw new ProposerNotCreatedException(TYPE_PROPOSER.getMessage());
         }else{
             proposer.setTypeOfProposer(dto.getTypeOfProposer());
         }
         if(dto.getAlliedCompanies().isEmpty()){
-            throw new ProposerNotCreatedException("Allied companies are required");
+            throw new ProposerNotCreatedException(COMPANIES.getMessage());
         }else{
             proposer.setAlliedCompanies(dto.getAlliedCompanies());
         }
         if(dto.getUrlDocuments().isEmpty()){
-            throw new ProposerNotCreatedException("Trajectory is required");
+            throw new ProposerNotCreatedException(TRAJECTORY.getMessage());
         }else{
             proposer.setTrajectoryDescription(dto.getTrajectoryDescription());
         }
         if(dto.getUrlDocuments().isEmpty()){
-            throw new ProposerNotCreatedException("Url documents are required");
+            throw new ProposerNotCreatedException(URL.getMessage());
         }
     }
 }

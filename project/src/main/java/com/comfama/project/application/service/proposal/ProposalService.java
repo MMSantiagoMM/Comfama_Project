@@ -2,6 +2,7 @@ package com.comfama.project.application.service.proposal;
 
 
 import com.comfama.project.application.dto.ProposalDTO;
+import com.comfama.project.application.messages.MessageExc.*;
 import com.comfama.project.domain.errors.ProposalError;
 import com.comfama.project.domain.models.Proposal;
 import com.comfama.project.infrastructure.adapters.proposal.ProposalJpaRepository;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.comfama.project.application.messages.MessageExc.*;
 
 @Service
 public class ProposalService implements IProposalService {
@@ -100,37 +103,37 @@ public class ProposalService implements IProposalService {
 
     private void validate(ProposalDTO dto, Proposal proposal) {
         if(dto.getName().isEmpty()){
-            throw new ProposalNotCreatedException("Name is required");
+            throw new ProposalNotCreatedException(NAME.getMessage());
         }else{
             proposal.setName(dto.getName());
         }
         if(dto.getDescriptionProposal().isEmpty()){
-            throw new ProposalNotCreatedException("Description Proposal is required");
+            throw new ProposalNotCreatedException(DESCRIPTION_PROPOSAL.getMessage());
         }else{
             proposal.setDescriptionProposal(dto.getDescriptionProposal());
         }
         if(dto.getDescriptionActivities().isEmpty()){
-            throw new ProposalNotCreatedException("Description activities is required");
+            throw new ProposalNotCreatedException(DESCRIPTION_ACTIVITY.getMessage());
         }else{
             proposal.setDescriptionActivities(dto.getDescriptionActivities());
         }
         if(dto.getFocusedPeople().isEmpty()){
-            throw new ProposalNotCreatedException("Focused people is required");
+            throw new ProposalNotCreatedException(FOCUSED_PEOPLE.getMessage());
         }else{
             proposal.setFocusedPeople(dto.getFocusedPeople());
         }
         if(dto.getBeginningDate()==null){
-            throw new ProposalNotCreatedException("Date must not be empty");
+            throw new ProposalNotCreatedException(DATE.getMessage());
         }else{
             proposal.setBeginningDate(dto.getBeginningDate());
         }
         if(dto.getTotalMoney().isNaN() || dto.getTotalMoney()==null){
-            throw new ProposalNotCreatedException("Money is required");
+            throw new ProposalNotCreatedException(MONEY.getMessage());
         }else{
             proposal.setTotalMoney(dto.getTotalMoney());
         }
         if(proposerJpaRepository.getProposer(dto.getIdProposer()).isEmpty()){
-            throw new ProposalNotCreatedException("Proposer is required");
+            throw new ProposalNotCreatedException(PROPOSER.getMessage());
         }else{
             proposal.setProposer(proposerJpaRepository.getProposer(dto.getIdProposer()).get());
         }
