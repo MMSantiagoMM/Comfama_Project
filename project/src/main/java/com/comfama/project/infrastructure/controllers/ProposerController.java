@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("proposers")
+@RequestMapping("api/v1/proposers")
 public class ProposerController implements IMethodsController<Proposer, ProposerDTO, Long>{
 
 

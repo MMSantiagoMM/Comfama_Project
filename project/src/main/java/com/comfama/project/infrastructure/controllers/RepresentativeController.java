@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("representative")
+@RequestMapping("api/v1/representatives")
 public class RepresentativeController implements IMethodsController<Representative,RepresentativeDTO,Integer>{
 
     @Autowired

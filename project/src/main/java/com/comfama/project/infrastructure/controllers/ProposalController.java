@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("proposal")
+@RequestMapping("api/v1/proposals")
 public class ProposalController implements IMethodsController<Proposal, ProposalDTO,Integer>{
 
     @Autowired
